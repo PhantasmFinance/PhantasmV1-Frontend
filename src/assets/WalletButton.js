@@ -7,7 +7,8 @@ export default function WalletButton({
   logoutOfWeb3Modal
 }) {
   return (
-    <button
+    <div>
+      <button
       className="wallet-button"
       onClick={() => {
         console.log({ provider });
@@ -20,5 +21,7 @@ export default function WalletButton({
     >
       {!provider ? "Connect Wallet" : "Disconnect Wallet"}
     </button>
+    </div>
+
   );
 }

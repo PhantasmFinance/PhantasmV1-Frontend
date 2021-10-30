@@ -1,8 +1,7 @@
-import { Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Box, Button, Image, Text, Stack, Input, Center, Flex, Heading } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem,  Box, Button, Image, Text, Stack,  Flex,} from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import React, { useState } from "react";
-import { useMoralis, useMoralisWeb3Api } from "react-moralis";
-import { Link } from "react-router-dom";
+import React from "react";
+import {useMoralisWeb3Api } from "react-moralis";
 
 export const LeveragedTokenDropdown = ({ leveragedToken, setLeveragedToken, leveragedLogo, setLeveragedLogo, leveragedLogoChange, getLeveragedAddress }) => {
 	const dai = { ticker: "DAI", address: "0x6D97eA6e14D35e10b50df9475e9EFaAd1982065E", logo: "https://cdn.moralis.io/eth/0x6b175474e89094c44da98b954eedeac495271d0f.png" };

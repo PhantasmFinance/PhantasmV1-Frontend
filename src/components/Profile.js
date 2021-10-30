@@ -1,13 +1,10 @@
-import { Box, Image, Heading, Stack, Text, Button, useColorMode, Center, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
-import { PositionOption } from "./PositionOption";
-import { CollateralDropdown } from "./CollateralDropdown";
-import { BorrowDropdown } from "./BorrowDropdown";
-import { useMoralis, useMoralisWeb3Api } from "react-moralis";
-import abi from "./abi/abis.json";
+import { Box, Image, Heading, Stack, Text, Button, useColorMode, Center,  Flex } from "@chakra-ui/react";
+import React from "react";
+import { CheckIcon} from "@chakra-ui/icons";
+
+import abi from "../abi/abis.json";
 import Web3 from "web3";
-import abi2 from "./abi/abis88.json";
+import abi2 from "../abi/abis88.json";
 
 export const Profile = () => {
   const { colorMode, toggleColorMode } = useColorMode();

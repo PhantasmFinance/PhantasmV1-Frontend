@@ -1,19 +1,12 @@
-import { Container, Flex, Heading, Spacer, Avatar, Menu, Box, MenuButton, MenuList, MenuItem, Image } from "@chakra-ui/react";
-import { ByMoralis, useMoralis } from "react-moralis";
+import { Container, Flex, Heading, Spacer, Menu, Box,  MenuList, MenuItem, Image } from "@chakra-ui/react";
 import { useState } from "react";
-import axios from "axios";
-import { Auth } from "./Auth";
-import { Route, Switch, Redirect, Link } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import { Home } from "./Home";
-import { Profile } from "./Profile";
-import { UpdateUser } from "./UpdateUser";
-import { useEffect } from "react";
+import { Profile } from "./components/Profile";
 import logo from "../src/assets/ghost.png";
 
-const Moralis = require("moralis");
 
 function App() {
-	const { isAuthenticated, logout, user, isAuthUndefined, isAuthenticating } = useMoralis();
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [items, setItems] = useState([]);
@@ -25,7 +18,6 @@ function App() {
 					<Image src={logo} boxSize="60px"></Image>
 				</Link>
 				<Spacer />
-				{isAuthenticated && (
 					<Box>
 						<Flex>
 							<Box mr="14">
@@ -43,24 +35,19 @@ function App() {
 								</Link>
 							</Box>
 							<Menu>
-								<MenuButton>{isAuthenticated && <Avatar name={user.attributes.username} />}</MenuButton>
 								<MenuList>
 									<MenuItem>
 										<Link to="/profile" exact>
 											Current Positions
 										</Link>
 									</MenuItem>
-									<MenuItem onClick={() => logout()} disabled={isAuthenticating}>
-										Logout
-									</MenuItem>
+
 								</MenuList>
 							</Menu>
 						</Flex>
 					</Box>
-				)}
 			</Flex>
 
-			{isAuthenticated ? (
 				<Switch>
 					<Route path="/" exact>
 						<Home />
@@ -68,16 +55,7 @@ function App() {
 					<Route path="/profile" exact>
 						<Profile />
 					</Route>
-					<Route path="/updateuser" exact>
-						<UpdateUser />
-					</Route>
 				</Switch>
-			) : (
-				<>
-					{!isAuthUndefined && <Redirect to="/" />}
-					<Auth />
-				</>
-			)}
 		</Container>
 	);
 }

@@ -1,12 +1,11 @@
-import { Box, Text, Heading } from "@chakra-ui/layout";
-import { Cards } from "./Cards";
+import { Box} from "@chakra-ui/layout";
 import TradingViewWidget, { Themes } from "react-tradingview-widget";
-import { Dropdown } from "./Dropdown";
 import { MainCard } from "./MainCard";
 import "./Home.css";
 
 export const Home = () => {
   return (
+    <div>
     <box class="flexbox-container">
       <div class="main">
         <Box w="500px" maxWidth="100ch">
@@ -17,5 +16,12 @@ export const Home = () => {
         <TradingViewWidget symbol="ETHDAI" theme={Themes.DARK} locale="en" autosize />
       </div>
     </box>
+
+    <footer class="site-footer">
+           <div className="footer-copyright">&copy; 2021 Phantasm Finance</div>
+      </footer>
+
+
+    </div>
   );
 };

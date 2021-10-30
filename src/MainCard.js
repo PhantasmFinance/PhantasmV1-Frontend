@@ -1,15 +1,13 @@
-import { Box, Image, Stack, Badge, Text, Button, useColorMode, Center, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Flex, Heading } from "@chakra-ui/react";
+import { Box, Image, Stack, Badge, Text, Button, useColorMode, Center, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { ChevronRightIcon, ChevronDownIcon, InfoIcon, TriangleDownIcon } from "@chakra-ui/icons";
-import { PositionOption } from "./PositionOption";
-import { CollateralDropdown } from "./CollateralDropdown";
-import { BorrowDropdown } from "./BorrowDropdown";
+import { ChevronRightIcon, ChevronDownIcon, InfoIcon} from "@chakra-ui/icons";
+import { PositionOption } from "./components/PositionOption";
 import { useMoralisWeb3Api, useWeb3ExecuteFunction, useMoralis, Moralis } from "react-moralis";
 import abi from "./abi/abis.json";
 import Web3 from "web3";
 import abi2 from "./abi/abis88.json";
-import { CollateralInput } from "./CollateralInput";
-import { LeveragedTokenDropdown } from "./LeveragedTokenDropdown";
+import { CollateralInput } from "./components/CollateralInput";
+import { LeveragedTokenDropdown } from "./components/LeveragedTokenDropdown";
 
 export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocked }) => {
 	const Web3Api = useMoralisWeb3Api();

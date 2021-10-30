@@ -1,6 +1,5 @@
-import { Radio, RadioGroup, HStack, Box, Image, Stack, Badge, Text, Button, useColorMode, Center, Slider, SliderTrack, SliderFilledTrack, SliderThumb } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { Radio, RadioGroup,  Stack, Center } from "@chakra-ui/react";
+import React from "react";
 
 export const PositionOption = ({ positionChange }) => {
   return (
