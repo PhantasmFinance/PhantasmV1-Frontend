@@ -3,6 +3,8 @@ import TradingViewWidget, { Themes } from "react-tradingview-widget";
 import { MainCard } from "./MainCard";
 import "./Home.css";
 
+
+console.log("fick")
 export const Home = () => {
   return (
     <div>

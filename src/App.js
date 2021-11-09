@@ -1,15 +1,18 @@
 import { Container, Flex, Heading, Spacer, Menu, Box,  MenuList, MenuItem, Image } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import { Home } from "./Home";
 import { Profile } from "./components/Profile";
-import logo from "../src/assets/ghost.png";
-
+import logo from "../src/assets/images/ghost.png";
+ 
 
 function App() {
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [items, setItems] = useState([]);
+	console.log("fiidksik")
+
+
 
 	return (
 		<Container w="1200px" maxWidth="150ch">

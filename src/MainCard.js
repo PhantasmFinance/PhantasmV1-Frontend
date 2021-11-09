@@ -1,8 +1,9 @@
 import { Box, Image, Stack, Badge, Text, Button, useColorMode, Center, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronRightIcon, ChevronDownIcon, InfoIcon} from "@chakra-ui/icons";
 import { PositionOption } from "./components/PositionOption";
 import { useMoralisWeb3Api, useWeb3ExecuteFunction, useMoralis, Moralis } from "react-moralis";
+import axios from 'axios';
 import abi from "./abi/abis.json";
 import Web3 from "web3";
 import abi2 from "./abi/abis88.json";
@@ -74,10 +75,6 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 
 	const [leveragedLogo, setLeveragedLogo] = useState("https://cdn.moralis.io/eth/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png");
 	const [leveragedTokenAddress, setLeveragedTokenAddress] = useState("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
-	const [leverageIn, setLeverageIn] = useState("");
-	const leveragedLogoChange = (leveragedToken) => {
-		setLeveragedLogo(leveragedToken.logo);
-	};
 
 	const compoundColorScheme = "green";
 	const aaveColorScheme = "purple";
@@ -100,46 +97,34 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 		this.setState({ name: childData });
 	};
 
-	const web3 = new Web3("http://127.0.0.1:8545");
 
-	web3.eth.getAccounts().then(console.log);
 
-	let AssetAmount = new web3.utils.BN("11000000000000000000000");
+	const [isLoaded, setIsLoaded] = useState(false);
+	const [items, setItems] = useState([]);
+	const [error, setError] = useState(null);
+  
+	useEffect(() => {
+		var result= axios.get("https://api.88mph.app/pools",
+		  {
+			query:  `{        
+			} `
+		  }
+		  ).then(
+			(result) => {
+			  setIsLoaded(true);
+			  setItems(result.data);
+			},
+			(error) => {
+			  setIsLoaded(true);
+			  setError(error);
+			}
+		  )
 
-	let initialBorrow = new web3.utils.BN("50000000000000000000");
+	
+	  }, [])
 
-	let maxApproval = new web3.utils.BN("99999999999999999999999999999999999999999");
+	
 
-	let newInterest = new web3.utils.BN("50000000000000000000");
-
-	let AssetinDai = new web3.utils.BN("306364830000000000000000");
-
-	let AssetAmountEE = new web3.utils.BN("11000000000000000");
-
-	let initialBorrowEE = new web3.utils.BN("500000000000");
-
-	const contract = new web3.eth.Contract(abi, "0x42bcde274fbceb42d311741557c73d52a7af087e");
-	const contract88 = new web3.eth.Contract(abi2, "0x42bcde274fbceb42d311741557c73d52a7af087e");
-
-	async function openPosition() {
-		if (positionType === "LONG") {
-			const coolNumber = await contract.methods.openInsulatedLongPositionNFT({ leveragedTokenAddress }, 50, AssetAmount, initialBorrow, 1, AssetinDai).send({ from: "0x0A9903B08c7cCb1E25e5488E1001e2ADED1cD92D" }).then(console.log);
-		}
-		if (positionType === "SHORT") {
-			// Do Short
-		}
-		console.log("Neither Exist");
-	}
-
-	async function makedeposit() {
-		const coolNumber = await contract88.methods.makeDeposit("0x6D97eA6e14D35e10b50df9475e9EFaAd1982065E", maxApproval, newInterest).send({ from: "0x42bcde274fbceb42d311741557c73d52a7af087e" }).then(console.log);
-		console.log("wew99");
-	}
-
-	async function closelong() {
-		const coolNumber = await contract.methods.closeLongPosition(1, 0, newInterest).send({ from: "0x42bcde274fbceb42d311741557c73d52a7af087e" }).then(console.log);
-		console.log("wew99");
-	}
 
 	return (
 		<div className="app">
@@ -175,13 +160,13 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 				<Box p={5}>
 					<PositionOption positionType={positionType} positionChange={positionChange} />
 					<Box my={3}>
-						<CollateralInput collateralToken={collateralToken} collateralLogo={collateralLogo} amountIn={amountIn} logoChange={logoChange} setCollateralLogo={setCollateralLogo} setCollateralToken={setCollateralToken} setAmountIn={setAmountIn} getCollateralAddress={getCollateralAddress} />
+						<CollateralInput data={items} setItems={setItems}  />
 					</Box>
 					<Center>
 						<ChevronDownIcon w={10} h={10} />
 					</Center>
 					<Box my={3}>
-						<LeveragedTokenDropdown leveragedToken={leveragedToken} setLeveragedToken={setLeveragedToken} leveragedLogo={leveragedLogo} setLeveragedLogo={setLeveragedLogo} leveragedLogoChange={leveragedLogoChange} getLeveragedAddress={getLeveragedAddress} />
+						<LeveragedTokenDropdown data={items} setItems={setItems}   />
 					</Box>
 					<Text as="h2" fontWeight="normal" mt={5}>
 						Leverage: {leverageAmount}X
@@ -220,7 +205,7 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 						Loan Amount: {amountIn * leverageAmount} DAI.
 					</Box>
 					<Center>
-						<Button onClick={openPosition} p={4} variant="solid" colorScheme="green" size="m" mt={5} bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" boxShadow="lg" fontSize="22px" borderRadius={20}>
+						<Button  p={4} variant="solid" colorScheme="green" size="m" mt={5} bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" boxShadow="lg" fontSize="22px" borderRadius={20}>
 							Enter Position
 						</Button>
 					</Center>
