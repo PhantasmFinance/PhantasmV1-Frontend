@@ -1,16 +1,12 @@
 import { Container, Flex, Heading, Spacer, Menu, Box,  MenuList, MenuItem, Image } from "@chakra-ui/react";
-import { useState , useEffect} from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import { Home } from "./Home";
-import { Profile } from "./components/Profile";
+import { Dashboard } from "./components/Dashboard";
 import logo from "../src/assets/images/ghost.png";
  
 
 function App() {
-	const [error, setError] = useState(null);
-	const [isLoaded, setIsLoaded] = useState(false);
-	const [items, setItems] = useState([]);
-	console.log("fiidksik")
+
 
 
 
@@ -25,22 +21,22 @@ function App() {
 						<Flex>
 							<Box mr="14">
 								<Link to="/" exact>
-									<Heading bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" bgClip="text">
-										Create Position
+									<Heading bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" bgClip="text" fontSize="1.75em">
+										Market
 									</Heading>
 								</Link>
 							</Box>
 							<Box mr="14">
-								<Link to="/profile" exact>
-									<Heading bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" bgClip="text">
-										My Positions
+								<Link to="/dashboard" exact>
+									<Heading bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" bgClip="text" fontSize="1.75em">
+										Dashboard
 									</Heading>
 								</Link>
 							</Box>
 							<Menu>
 								<MenuList>
 									<MenuItem>
-										<Link to="/profile" exact>
+										<Link to="/dashboard" exact>
 											Current Positions
 										</Link>
 									</MenuItem>
@@ -55,10 +51,16 @@ function App() {
 					<Route path="/" exact>
 						<Home />
 					</Route>
-					<Route path="/profile" exact>
-						<Profile />
+					<Route path="/dashboard" exact>
+						<Dashboard />
 					</Route>
 				</Switch>
+
+
+	 <footer class="site-footer">
+           <div className="footer-copyright">&copy; 2021 Phantasm Finance</div>
+      </footer>
+
 		</Container>
 	);
 }

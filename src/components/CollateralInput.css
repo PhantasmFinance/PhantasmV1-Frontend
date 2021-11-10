@@ -1,0 +1,12 @@
+.menubutton{
+color: blue;
+background-color: linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA);
+min-height: 16;
+height: 1;
+padding: 5;
+width: 10%;
+
+}
+
+.test{
+}

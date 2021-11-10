@@ -6,7 +6,7 @@ import abi from "../abi/abis.json";
 import Web3 from "web3";
 import abi2 from "../abi/abis88.json";
 
-export const Profile = () => {
+export const Dashboard = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const web3 = new Web3("http://127.0.0.1:8545");
@@ -29,48 +29,44 @@ export const Profile = () => {
           <Center>
             <Flex>
               <Stack mx="25px">
-                <Text as="u" fontSize="xl">
-                  Asset
+                <Text  fontSize="xl">
+                  Collateralized Asset
                 </Text>
                 <Center>
                   <Image boxSize="2rem" borderRadius="full" src="https://cryptologos.cc/logos/multi-collateral-dai-dai-logo.png"></Image>
                 </Center>
               </Stack>
+
               <Stack mx="25px">
-                <Text as="u" fontSize="xl">
-                  Long/Short
+                <Text fontSize="xl">
+                  Position
                 </Text>
                 <Center>
                   <Text>Long</Text>
                 </Center>
               </Stack>
-              <Stack mx="25px">
-                <Text as="u" fontSize="xl">
-                  Insured
-                </Text>
-                <Center>
-                  <CheckIcon />
-                </Center>
-              </Stack>
+
               <Stack mx="6px">
-                <Text as="u" fontSize="xl">
-                  Debt Owed
+                <Text  fontSize="xl">
+                  Debt
                 </Text>
                 <Center>
                   <Text>500</Text>
                 </Center>
               </Stack>
+
               <Stack mx="6px">
-                <Text as="u" fontSize="xl">
+                <Text  fontSize="xl">
                   Total Collateral
                 </Text>
                 <Center>
                   <Text>10000</Text>
                 </Center>
               </Stack>
+
               <Stack mx="5px">
                 <Center>
-                  <Text as="u" fontSize="xl">
+                  <Text  fontSize="xl">
                     Action
                   </Text>
                 </Center>
@@ -78,6 +74,7 @@ export const Profile = () => {
                   Close Position
                 </Button>
               </Stack>
+              
             </Flex>
           </Center>
         </Box>

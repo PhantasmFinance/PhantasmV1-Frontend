@@ -15,13 +15,9 @@ export const Home = () => {
         </Box>
       </div>
       <div class="trading">
-        <TradingViewWidget symbol="ETHDAI" theme={Themes.DARK} locale="en" autosize />
       </div>
     </box>
 
-    <footer class="site-footer">
-           <div className="footer-copyright">&copy; 2021 Phantasm Finance</div>
-      </footer>
 
 
     </div>

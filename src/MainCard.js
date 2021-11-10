@@ -10,6 +10,8 @@ import abi2 from "./abi/abis88.json";
 import { CollateralInput } from "./components/CollateralInput";
 import { LeveragedTokenDropdown } from "./components/LeveragedTokenDropdown";
 
+
+
 export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocked }) => {
 	const Web3Api = useMoralisWeb3Api();
 
@@ -63,18 +65,33 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 		setPosition(value);
 	};
 
+
+
 	const [collateralToken, setCollateralToken] = useState("DAI");
 	const [leveragedToken, setLeveragedToken] = useState("WETH");
+
+
+	const [leveragedTokenValue, setLeveragedTokenValue] = useState("0");
+	const [collateralTokenValue, setCollateralTokenValue] = useState("0");
+
+
+
+
+
 
 	const [collateralLogo, setCollateralLogo] = useState("https://cdn.moralis.io/eth/0x6b175474e89094c44da98b954eedeac495271d0f.png");
 	const [collateralTokenAddress, setCollateralTokenAddress] = useState("0x6B175474E89094C44Da98b954EedeAC495271d0F");
 	const [amountIn, setAmountIn] = useState("");
-	const logoChange = (collateralToken) => {
-		setCollateralLogo(collateralToken.logo);
-	};
+
 
 	const [leveragedLogo, setLeveragedLogo] = useState("https://cdn.moralis.io/eth/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png");
 	const [leveragedTokenAddress, setLeveragedTokenAddress] = useState("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
+
+
+
+
+
+
 
 	const compoundColorScheme = "green";
 	const aaveColorScheme = "purple";
@@ -82,20 +99,12 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 	const daiViaCompoundPool = "0x11B1c87983F881B3686F8b1171628357FAA30038";
 	const [pool, setPool] = useState("");
 
-	const handlePoolChange = (value) => {
-		setPool(value);
-	};
 	const { colorMode, toggleColorMode } = useColorMode();
 	const [leverageAmount, setLeverageAmount] = useState(1);
 
 	const loanAmount = amountIn * leverageAmount;
 
-	const state = {
-		name: "",
-	};
-	const handleCallback = (childData) => {
-		this.setState({ name: childData });
-	};
+
 
 
 
@@ -104,7 +113,7 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 	const [error, setError] = useState(null);
   
 	useEffect(() => {
-		var result= axios.get("https://api.88mph.app/pools",
+		axios.get("https://api.88mph.app/pools",
 		  {
 			query:  `{        
 			} `
@@ -123,7 +132,8 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 	
 	  }, [])
 
-	
+
+
 
 
 	return (
@@ -160,13 +170,13 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 				<Box p={5}>
 					<PositionOption positionType={positionType} positionChange={positionChange} />
 					<Box my={3}>
-						<CollateralInput data={items} setItems={setItems}  />
+						<CollateralInput data={items} setItems={setItems} setCollateralTokenValue={setCollateralTokenValue} collateralToken={collateralToken} setCollateralToken={setCollateralToken}  />
 					</Box>
 					<Center>
 						<ChevronDownIcon w={10} h={10} />
 					</Center>
 					<Box my={3}>
-						<LeveragedTokenDropdown data={items} setItems={setItems}   />
+						<LeveragedTokenDropdown data={items} setItems={setItems} leveragedToken={leveragedToken} setLeveragedToken={setLeveragedToken} setLeveragedTokenValue={setLeveragedTokenValue} />
 					</Box>
 					<Text as="h2" fontWeight="normal" mt={5}>
 						Leverage: {leverageAmount}X
@@ -176,19 +186,22 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 						defaultValue={0}
 						min={1}
 						max={10}
-						step={0.05}
+						step={1}
 						mt={2}
 						onChange={(val) => {
 							const currentLeverageAmount = val;
 							setLeverageAmount(currentLeverageAmount);
 						}}
 					>
+
 						<SliderTrack bg="green.100">
-							<Box position="relative" right={10} />
-							<SliderFilledTrack bg={aaveColorScheme} />
+								<Box position="relative" right={10} />
+								<SliderFilledTrack bg={aaveColorScheme} />
 						</SliderTrack>
 						<SliderThumb boxSize={6} />
+
 					</Slider>
+
 					<Center>
 						<ChevronDownIcon w={8} h={8} my={4} />
 					</Center>
@@ -205,7 +218,7 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 						Loan Amount: {amountIn * leverageAmount} DAI.
 					</Box>
 					<Center>
-						<Button  p={4} variant="solid" colorScheme="green" size="m" mt={5} bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" boxShadow="lg" fontSize="22px" borderRadius={20}>
+						<Button  p={4} variant="solid" colorScheme="green" size="m" mt={5} bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" boxShadow="lg" fontSize="15px" borderRadius={20}>
 							Enter Position
 						</Button>
 					</Center>
@@ -215,6 +228,7 @@ export const MainCard = ({ _asset, _protocol, _totalTokensLocked, _totalUSDLocke
 						<br />
 						Leveraged Asset: <br />
 						{leveragedTokenAddress}
+						{leveragedTokenValue}
 						<br />
 					</Text>
 				</Box>

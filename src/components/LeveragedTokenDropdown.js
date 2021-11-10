@@ -1,30 +1,26 @@
-import { Menu, MenuButton, MenuList, MenuItem,  Box, Button, Text, Stack,  Flex,} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem,  Input, Box, Button, Text, Stack,  Flex,} from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 import {useMoralisWeb3Api } from "react-moralis";
 
-export const LeveragedTokenDropdown = ({ data, setitems , leverageToken }) => {
+export const LeveragedTokenDropdown = ({ data, setitems , leveragedToken, setLeveragedToken, setLeveragedTokenValue }) => {
 
 
 	const Web3Api = useMoralisWeb3Api();
 
-	const [leveragedToken, setLeveragedToken] = useState("DAI");
 
 
 
+  const [value, setValue] = useState('');
+  const onChange = (event) => {
+    setValue(event.target.value);
+  };
+
+
+	
 
 
 
-	const getBalances = async () => {
-		const userBalance = await Web3Api.account.getTokenBalances();
-	};
-
-	const getLogo = async (_symbol) => {
-		await Web3Api.token.getTokenMetadataBySymbol({ symbols: _symbol }).logo;
-	};
-
-
-  console.log(data)
 	
 	return (
 		<Box>
@@ -33,9 +29,12 @@ export const LeveragedTokenDropdown = ({ data, setitems , leverageToken }) => {
 			</Text>
 			<Flex>
 				<Menu>
-					<MenuButton as={Button} w="100%" rightIcon={<ChevronDownIcon />} colorScheme="blue" bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" p={5} minHeight={16} h={30} defaultValue="DAI">
+					<Input placeholder="Value" p={5} minHeight={16} h={30} w="70%"   onChange={e => setLeveragedTokenValue(e.target.value)}/>
+										
+					<MenuButton as={Button} w="30%" rightIcon={<ChevronDownIcon />} colorScheme="blue" bgGradient="linear(to-r, #9D8DF1, #B8CDF8, #1CFEBA)" p={5} minHeight={16} h={30} defaultValue="DAI">
 					      {leveragedToken}
-						</MenuButton>				
+					</MenuButton>				
+
 					<MenuList>
 						{data.map((item) =>(
 							<MenuItem
