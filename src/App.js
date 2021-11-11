@@ -3,9 +3,23 @@ import { Route, Switch, Link } from "react-router-dom";
 import { Home } from "./Home";
 import { Dashboard } from "./components/Dashboard";
 import logo from "../src/assets/images/ghost.png";
- 
+import React, { useState, useEffect } from "react";
+
 
 function App() {
+
+	const [collateralToken, setCollateralToken] = useState("DAI");
+	const [leveragedToken, setLeveragedToken] = useState("WETH");
+
+
+	const [leveragedTokenValue, setLeveragedTokenValue] = useState("0");
+	const [collateralTokenValue, setCollateralTokenValue] = useState("0");
+
+	const [collateralTokenAddress, setCollateralTokenAddress] = useState("0x6B175474E89094C44Da98b954EedeAC495271d0F");
+	const [leveragedTokenAddress, setLeveragedTokenAddress] = useState("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2");
+
+
+
 
 
 
@@ -49,7 +63,20 @@ function App() {
 
 				<Switch>
 					<Route path="/" exact>
-						<Home />
+						<Home 
+							collateralToken={collateralToken} 
+							setCollateralToken={setCollateralToken}
+							setCollateralTokenAddress={setCollateralTokenAddress}
+							setCollateralTokenValue={setCollateralTokenValue}
+							collateralTokenAddress={collateralTokenAddress}
+							collateralTokenValue={collateralTokenValue}
+							leveragedToken={leveragedToken}
+							leveragedTokenValue={leveragedTokenValue}
+							leveragedTokenAddress={leveragedTokenAddress}
+							setLeveragedToken={setLeveragedToken}
+							setLeveragedTokenAddress={setLeveragedTokenAddress}
+							setLeveragedTokenValue={setLeveragedTokenValue}
+						 />
 					</Route>
 					<Route path="/dashboard" exact>
 						<Dashboard />

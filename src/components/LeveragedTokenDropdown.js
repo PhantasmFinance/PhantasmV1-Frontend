@@ -3,7 +3,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 import {useMoralisWeb3Api } from "react-moralis";
 
-export const LeveragedTokenDropdown = ({ data, setitems , leveragedToken, setLeveragedToken, setLeveragedTokenValue }) => {
+export const LeveragedTokenDropdown = ({ data,  leveragedToken, setLeveragedToken, setLeveragedTokenValue , leveragedTokenValue}) => {
 
 
 	const Web3Api = useMoralisWeb3Api();
@@ -17,11 +17,9 @@ export const LeveragedTokenDropdown = ({ data, setitems , leveragedToken, setLev
   };
 
 
-	
 
 
 
-	
 	return (
 		<Box>
 			<Text as="h2" fontWeight="bold" mb={2}>
